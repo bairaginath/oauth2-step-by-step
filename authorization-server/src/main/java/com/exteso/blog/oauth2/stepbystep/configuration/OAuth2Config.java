@@ -54,15 +54,19 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
         converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
         return converter;
     }
+    
+    
+    
+    
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("service-account-1")
                 .secret("service-account-1-secret")
-                .authorizedGrantTypes("client_credentials")
+                .authorizedGrantTypes("password","client_credentials","refresh_token")
                 .scopes("resource-server-read", "resource-server-write")
-                .accessTokenValiditySeconds(60);
+                .accessTokenValiditySeconds(3600);
     }
 
 }
